@@ -1,0 +1,14 @@
+{
+  "name": "react-routing-samples",
+  "version": "0.0.1",
+  "description": "Demo React routing",
+  "dependencies": {
+    "history": "1.13.x",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.3"
+  },
+  "devDependencies": {
+    "reactify": "^1.1.1"
+  }
+}
