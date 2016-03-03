@@ -5,12 +5,13 @@ var Link = ReactRouter.Link
 var IndexRoute = ReactRouter.IndexRoute
 var ReactDOM = require('react-dom')
 var React = require('react')
+var products = require('./../data.js').allProducts;
 
 var Home = React.createClass({
   render : function(){
      return(
 
-     	<div>
+      <div>
 
       <div className="jumbotron">
   
@@ -66,154 +67,16 @@ var Home = React.createClass({
              </div>
           </div>
         </div>
+    
+         <div>
+         <ProductDisplay products = {this.props.products}/>
+         </div>
+      </div>
 
       
-     
-       <section id="products">
-        <div className="row">
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/s5.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $699.99
-                </h4>
-                <h4><Link to="/product">Samsung Galaxy S5</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">15 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-         
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/xbox.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $399.99
-                </h4>
-                <h4><Link to="/product">Xbox One</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">8 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star-empty"></span>
-                  </p>
-                </div>
-              </div>
-          </div>
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/ps4.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $699.99
-                </h4>
-                <h4><Link to="/product">Playstation 4</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">4 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/s5.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $699.99
-                </h4>
-                <h4><Link to="/product">Samsung Galaxy S5</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">15 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-         
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/tv.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $599.99
-                </h4>
-                <h4><Link to="/product">Vizio Smart TV</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">22 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star-empty"></span>
-                  </p>
-                </div>
-              </div>
-          </div>
-          <div className="col-md-4">
-            <div className="thumbnail">
-              <img src="img/surface.png"/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  $399.99
-                </h4>
-                <h4><Link to="/product">Microsoft Surface</Link></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">14 Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        </div>
-          );
+    );
+                        
+          
     }
 });
 
