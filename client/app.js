@@ -8,6 +8,9 @@ var React = require('react') ;
 var request = require('superagent') ; 
 
 
+var MyAccount = require('./javascript/myaccount.js');
+{/*var Home = require('./javascript/home.js');*/}
+
 var Header = React.createClass({
   render : function() {
     return (
@@ -24,57 +27,8 @@ var Header = React.createClass({
 });
 
 
-var ProductListItem = React.createClass({
-    render : function() {
-         return (
 
-           <div className="col-md-4">
-            <div className="thumbnail">
-              <img src={this.props.product.image}/>
-              <div className="caption">
-                <h4 className="pull-right">
-                  €{this.props.product.price}
-                </h4>
-                <h4><Link to="/product">{this.props.product.name}</Link></h4>
-                                     <p>{this.props.product.description}</p>
-                </div>
-                <div className="ratings">
-                  <p className="pull-right">{this.props.product.reviews} Reviews</p>
-                  <p>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-                    <span className="glyphicon glyphicon-star"></span>
-
-                  </p>
-                </div>
-              </div>
-            </div>
-           )
-    }
-});
-
-
-var ProductList = React.createClass({
-   render : function(){
-          var displayedProducts = this.props.list.map(function(productItem){
-            return <ProductListItem key={productItem.name} product={productItem}/>;
-          });
-          return (
-
-                     <section id="products">
-                          <ul>
-                              {displayedProducts}
-                          </ul>
-                      </section>
-            );
-
-    }
-});
-
-
-var FiltetedProducts = React.createClass({
+var NavBar = React.createClass({
     getInitialState : function() {
         return {
             searchText : ''
@@ -113,8 +67,9 @@ var FiltetedProducts = React.createClass({
          }.bind(this) );
 
         return (
+
           <div>
-           <nav className="navbar navbar-default">
+          <nav className="navbar navbar-default">
                 <div className="container-fluid">
                   <div className="navbar-header">
                     <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -126,7 +81,7 @@ var FiltetedProducts = React.createClass({
                   </div>
                   <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
-                      <li className="active"><Link to="/home">Home</Link></li>
+                      <li className="active"><Link to="/">Home</Link></li>
                        
                        <li><Link to="/specials">Specials</Link></li>
                        <li><Link to="/myaccount">My Account</Link></li>
@@ -135,7 +90,14 @@ var FiltetedProducts = React.createClass({
                          <form className="navbar-form">
                           <div className="form-group">
                             <input type="text"  className="form-control" placeholder="Search Products" onChange={this.filterProducts} />
-                          </div>
+                             <div className="form-group">
+                                  <label for="sort">Sort: </label>
+                                  <select className="form-control" id="sort">
+                                     <option value="price">High Price</option>
+                                     <option value="price">Low Price</option>
+                                  </select>
+                                </div>
+                                </div>
                          </form>
                         </ul>
                     </div>
@@ -143,9 +105,62 @@ var FiltetedProducts = React.createClass({
               </nav>
                <ProductList list={updatedList} />
           </div>
+         
         );
     }
 });
+
+
+  
+var ProductListItem = React.createClass({
+    render : function() {
+         return (
+
+           <div className="col-md-4">
+            <div className="thumbnail">
+              <img src={this.props.product.image}/>
+              <div className="caption">
+                <h4 className="pull-right">
+                  €{this.props.product.price}
+                </h4>
+                <h4><Link to="/product">{this.props.product.name}</Link></h4>
+                                     <p>{this.props.product.description}</p>
+                </div>
+                <div className="ratings">
+                  <p className="pull-right">{this.props.product.reviews} Reviews</p>
+                  <p>
+                    <span className="glyphicon glyphicon-star"></span>
+                    <span className="glyphicon glyphicon-star"></span>
+                    <span className="glyphicon glyphicon-star"></span>
+                    <span className="glyphicon glyphicon-star"></span>
+                    <span className="glyphicon glyphicon-star"></span>
+
+                  </p>
+                </div>
+              </div>
+            </div>
+           )
+    }
+});
+
+
+var ProductList = React.createClass({
+   render : function(){
+          var displayProducts = this.props.list.map(function(productItem){
+            return <ProductListItem key={productItem.name} product={productItem}/>;
+          });
+          return (
+
+                     <section id="products">
+                          <ul>
+                              {displayProducts}
+                          </ul>
+                      </section>
+            );
+
+    }
+});
+
 
 
 var Footer = React.createClass({
@@ -161,14 +176,38 @@ var Footer = React.createClass({
 });
 
 
-var TechApp = React.createClass({
+
+
+var Specials = React.createClass({
+  render : function() {
+    return (
+
+          <div>
+          <h1>Hey</h1>
+          <h2>Specials</h2>
+          </div>
+      );
+
+  }
+
+});
+
+
+
+
+
+var TechStoreApp = React.createClass({
+
   render : function() {
     return (
       <div>
-        <div className="container">
+          <div className="container">
           <Header />
-             <FiltetedProducts/>
-         </div>
+          <NavBar />
+        
+              {this.props.children}
+         
+           </div>
           <Footer />
       </div>
     )
@@ -176,7 +215,14 @@ var TechApp = React.createClass({
 });
 
 
-ReactDOM.render(
-  <TechApp/>,
+ReactDOM.render((
+  <Router >
+    <Route path="/" component={TechStoreApp}>
+      <Route path="specials" component={Specials} />
+      <Route path="myaccount" component={MyAccount} >
+      </Route>
+    </Route>
+  </Router>
+  ),
     document.getElementById('mount-point')
 ); 
