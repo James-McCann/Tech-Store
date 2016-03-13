@@ -425,7 +425,13 @@ var ProductListItem = React.createClass({
   displayName: 'ProductListItem',
 
   getInitialState: function getInitialState() {
-    return {};
+    return {
+      name: this.props.product.name,
+      price: this.props.product.price,
+      description: this.props.product.description,
+      reviews: this.props.product.reviews,
+      image: this.props.product.image
+    };
   },
 
   render: function render() {

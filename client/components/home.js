@@ -13,10 +13,14 @@ var ProductListItem = React.createClass({
 
   getInitialState : function() {
                return {
-                
-                
+                name: this.props.product.name,
+                price: this.props.product.price,
+                description: this.props.product.description,
+                reviews: this.props.product.reviews,
+                image: this.props.product.image   
                } ;
             },
+
 
  
     render : function() {
@@ -139,8 +143,7 @@ var Home = React.createClass({
             }.bind(this)); 
     },
 
-
-     
+  
     render: function(){
          var updatedList = localStorage.getItem('products') ?
                   JSON.parse(localStorage.getItem('products')) : [] ;
