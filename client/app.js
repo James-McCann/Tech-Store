@@ -7,9 +7,9 @@ var ReactDOM = require('react-dom') ;
 var React = require('react') ;
 var request = require('superagent') ; 
 
-
+var Location = require('./components/location.js');
 var MyAccount = require('./components/myaccount.js');
-var addProductForm = require('./components/addProductForm.js');
+var AddProductForm = require('./components/addProductForm.js');
 var Home = require('./components/home.js');
 
 
@@ -51,8 +51,10 @@ var NavBar = React.createClass({
                   <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
                       <li className="active"><Link to="/">Home</Link></li>
-                       <li><Link to="/addproductform">Specials</Link></li>
+                       <li><Link to="/addproductform">Add Product</Link></li>
                        <li><Link to="/myaccount">My Account</Link></li>
+                       <li><Link to="/location">Location</Link></li>
+
                     </ul>
                     </div>
                   </div>
@@ -118,7 +120,8 @@ ReactDOM.render((
   <Router>
     <Route component={TechStoreApp}>
     <Route path="/" component={Home}/>
-      <Route path="addproductform" component={addProductForm} />
+      <Route path="addproductform" component={AddProductForm} />
+      <Route path="location" component={Location} />
       <Route path="myaccount" component={MyAccount} >
       </Route>
     </Route>

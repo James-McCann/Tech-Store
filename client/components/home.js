@@ -6,12 +6,24 @@ var IndexRoute = ReactRouter.IndexRoute
 var ReactDOM = require('react-dom')
 var React = require('react')
 var request = require('superagent') ; 
+var _ = require('lodash');
 
 
 var ProductListItem = React.createClass({
+
+  getInitialState : function() {
+               return {
+                
+                
+               } ;
+            },
+
+ 
     render : function() {
          return (
 
+
+ 
            <div className="col-md-4">
             <div className="thumbnail">
               <img src={this.props.product.image}/>
@@ -33,6 +45,7 @@ var ProductListItem = React.createClass({
 
                   </p>
                 </div>
+                <button type ="submit" className="btn btn-danger" value="Delete"/>
               </div>
             </div>
            )
@@ -58,15 +71,59 @@ var ProductList = React.createClass({
 });
 
 
+var FilterOptions = React.createClass({
+      handleChange : function(e, type,value) {
+           e.preventDefault();
+           this.props.option( type,value);
+      },
+      handleTextChange : function(e) {
+            this.handleChange( e, 'search', e.target.value);
+      },
+      handleSortChange : function(e) {
+          this.handleChange(e, 'sort', e.target.value);
+      },
+      render: function(){
+           return (
+             
+             <div className ="row">
+              <div className ="col-md-3">
+                   <form className="form">
+                    <div className="form-group">
+                     <label>Search Product: </label>
+                      <input type="text"  className="form-control" placeholder="Search Products" value={this.props.filterText}
+                          onChange={this.handleTextChange} />
+                       <div className="form-group">
+                            <label>Sort: </label>
+                            <select className="form-control" id="sort" value={this.props.order } 
+                         onChange={this.handleSortChange} >
+                               <option value="name">Name</option>
+                               <option value="price">Price</option>
+                            </select>
+                        </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+               );
+          }
+       });
+
 
 var Home = React.createClass({
 
     getInitialState : function() {
         return {
-            searchText : ''
+            search : '' , sort: 'name'
       }
     },
 
+    handleChange : function(type,value) {
+                    if ( type == 'search' ) {
+                        this.setState( { search: value } ) ;
+                      } else {
+                         this.setState( { sort: value } ) ;
+                      }
+              }, 
 
     componentDidMount : function() {
          
@@ -83,42 +140,48 @@ var Home = React.createClass({
     },
 
 
-    filterProducts : function(event) {
-        event.preventDefault();
-        this.setState({searchText : event.target.value.toLowerCase()});
-    },
-
-
+     
     render: function(){
-        var updatedList = localStorage.getItem('products') ? JSON.parse(localStorage.getItem('products')) : [] ;
+         var updatedList = localStorage.getItem('products') ?
+                  JSON.parse(localStorage.getItem('products')) : [] ;
 
-        updatedList = updatedList.filter(function(productItem){
-
-               return productItem.name.toLowerCase().search(this.state.searchText) !== -1 ;  
-
-         }.bind(this) );
+        var list = updatedList.filter(function(p) {
+                  return p.name.toLowerCase().search(this.state.search.toLowerCase() ) != -1 ;
+                }.bind(this) );
+          var filteredList = _.sortBy(list, this.state.sort) ;
 
         return (
 
           <div>
+
+          {/*
+
+          
             <div className ="row">
               <div className ="col-md-3">
                    <form className="form">
                     <div className="form-group">
                      <label>Search Product: </label>
-                      <input type="text"  className="form-control" placeholder="Search Products" onChange={this.filterProducts} />
+                      <input type="text"  className="form-control" placeholder="Search Products" onChange={this.filterText} />
                        <div className="form-group">
                             <label>Sort: </label>
-                            <select className="form-control" id="sort">
-                               <option value="price">Price</option>
-                               <option value="price">Reviews</option>
+                            <select className="form-control" id="sort" value={this.props.order} onChange={this.handleSortChange}>
+                               <option value="price">Name</option>
+                               <option value="name">Price</option>
                             </select>
                         </div>
                     </div>
                   </form>
               </div>
-            </div>    
-                     <ProductList list={updatedList}/> 
+            </div>  */}  
+                     <FilterOptions option={this.handleChange } 
+                        filterText={this.state.search} 
+                        sort={this.state.sort} />
+
+
+                     <ProductList list={filteredList}/> 
+                           
+                             
           </div>
          
         );
